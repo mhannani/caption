@@ -1,4 +1,6 @@
+import os
 import pandas as pd
+from PIL import Image
 import torch
 from torch.utils.data import DataLoader, Dataset
 
@@ -56,7 +58,24 @@ class FlickrDataset(Dataset):
 
         # get the caption and the image for the current given index
         caption = self.captions[item]
-        image = self.images[item]
+        image_filename = self.images[item]
+
+        # read the image from the path using the filename
+        image = Image.open(os.path.join(self.root_dir, image_filename)).convert('RGB')
+
+        # transform an image of a transformer was given
+        if self.transform is not None:
+            image = self.transform(image)
+
+        # build caption in numerical representation
+        # add the Start Of Sentence
+        numeric_caption = [self.vocabulary.stoi["<SOS>"]]
+        # numericlize the caption
+        numeric_caption += self.vocabulary.numericalize(caption)
+        # add the End Of Sentence
+        numeric_caption.append(self.vocabulary.stoi["<EOS>"])
+
+        return image, torch.tensor(numeric_caption)
 
 
 
