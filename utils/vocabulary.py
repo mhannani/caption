@@ -71,7 +71,7 @@ class Vocabulary:
                     self.itos[index] = token
                     index += 1
 
-    def numericlize(self, text):
+    def numericalize(self, text):
         """
         Takes a text and converts it into numerical value.
         :param text: string

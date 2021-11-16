@@ -4,10 +4,12 @@ from PIL import Image
 import torch
 from torch.utils.data import DataLoader, Dataset
 
+from utils import Vocabulary
+
 
 class FlickrDataset(Dataset):
     """
-    The Flikr Dataset loader class.
+    The Flickr Dataset loader class.
     """
     def __init__(self, root_dir, captions_file, transform=None, freq_threshold=5):
         """
