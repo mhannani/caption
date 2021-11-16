@@ -1,6 +1,6 @@
 class Vocabulary:
     """
-    Build and
+    Initialize and Build the vocabulary.
     """
 
     def __init__(self, freq_threshold):
@@ -86,5 +86,6 @@ class Vocabulary:
             self.stoi[token] if token in self.stoi else self.stoi["<UNK>"]
             for token in tokenized_text
         ]
+
 
 
