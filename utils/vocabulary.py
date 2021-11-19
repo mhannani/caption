@@ -1,3 +1,8 @@
+import spacy
+
+spacy_eng = spacy.load("en_core_web_sm")
+
+
 class Vocabulary:
     """
     Initialize and Build the vocabulary.

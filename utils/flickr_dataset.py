@@ -4,7 +4,7 @@ from PIL import Image
 import torch
 from torch.utils.data import DataLoader, Dataset
 
-from utils import Vocabulary
+from utils.vocabulary import Vocabulary
 
 
 class FlickrDataset(Dataset):
@@ -30,13 +30,12 @@ class FlickrDataset(Dataset):
         self.captions_file = captions_file
         self.transform = transform
         self.freq_threshold = freq_threshold
-
         # load the dataframe of captions and image filename
-        self.captions = pd.read_csv(self.captions_file)
+        self.df = pd.read_csv(self.captions_file)
 
         # get the images and captions
-        self.images = self.df['image']
-        self.captions = self.df['caption']
+        self.images = self.df["image"]
+        self.captions = self.df["caption"]
 
         # Initialize and build the vocabulary
         self.vocabulary = Vocabulary(freq_threshold)

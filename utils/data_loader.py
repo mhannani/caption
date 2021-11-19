@@ -1,10 +1,11 @@
-from utils import FlickrDataset, Equiponderater
+from utils.flickr_dataset import FlickrDataset
+from utils.equiponderate import Equiponderater
 from torch.utils.data import DataLoader
 
 
 def data_loader(root_dir, caption_file,
                 transform, batch_size=32,
-                num_workers=8, shuffle=True,
+                num_workers=16, shuffle=True,
                 pin_memory=True):
     """
 
@@ -28,7 +29,6 @@ def data_loader(root_dir, caption_file,
 
     # load the dataset
     dataset = FlickrDataset(root_dir, caption_file, transform)
-
     # padding value
     pad_value = dataset.vocabulary.stoi["<PAD>"]
 
@@ -39,6 +39,9 @@ def data_loader(root_dir, caption_file,
         num_workers=num_workers,
         shuffle=shuffle,
         pin_memory=pin_memory,
-        collate_fn=Equiponderater(pad_value)
+        collate_fn=Equiponderater(pad_value=pad_value)
     )
+
+    return loader
+
 

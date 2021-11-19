@@ -10,16 +10,19 @@ class Equiponderater:
     def __init__(self, pad_value):
         """
         Class constructor.
-        :param pad_index:
+        :param pad_value: integer
+            Padding value.
         """
 
         self.pad_value = pad_value
 
     def __call__(self, batch):
+
         # get the images from the batch
+        # print(batch[0][0])
         images = [image[0].unsqueeze(0) for image in batch]
 
-        # concatenate the retrieved images along the axis-0(batch number axis)
+        # concatenate the retrieved images along the axis-0 (batch axis)
         images = torch.cat(images, dim=0)
 
         # get the caption from the batch
