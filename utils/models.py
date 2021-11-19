@@ -106,3 +106,34 @@ class RNN(nn.Module):
         return outputs
 
 
+class Captioner(nn.Module):
+    """
+    The Captioner class
+    """
+    def __init__(self, embed_size, hidden_size, vocabulary_size, num_layers):
+        """
+        The class constructor.
+        :param embed_size: Integer
+        :param hidden_size: Integer
+        :param vocabulary_size: Integer
+        :param num_layers: Integer
+        """
+        super().__init__()
+
+        self.encoder = CNN(embed_size)
+        self.decoder = RNN(embed_size, hidden_size, vocabulary_size, num_layers)
+
+    def forward(self, images, captions):
+        """
+        The forward pass the network.
+        :param images: array_like
+            The image representation of the CNN network
+        :param captions: array_like
+            The caption representation
+        :return:
+        """
+
+        features = self.encoder(images)
+        outputs = self.decoder(features, captions)
+
+        return outputs
