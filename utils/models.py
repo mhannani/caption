@@ -137,3 +137,31 @@ class Captioner(nn.Module):
         outputs = self.decoder(features, captions)
 
         return outputs
+
+    def image_captioner(self, image, vocabulary, max_length=50):
+        """
+        Generate brief description of the given image.
+        :param image:
+        :param vocabulary:
+        :param max_length:
+        :return:
+        """
+
+        caption_index = []
+        with torch.no_grad():
+            x = self.encoder(image).unsqueeze(0)
+            states = None  # hidden and self state of the LSTM
+            for _ in range(max_length):
+                hiddens, states = self.decoder.lstm(x, states)
+                output = self.decoder.linear(hiddens.unsqueeze(0))
+                relevant_word = output.argmax(1)
+                caption_index.append(relevant_word)
+                x = self.decoder.embed(relevant_word).unsqueeze(0)
+
+                # if we reach the end of the sentence
+                if vocabulary.itos[relevant_word.item()] == "<EOS>":
+                    break
+
+            caption = [vocabulary.itos[index] for index in caption_index]
+
+        return caption
