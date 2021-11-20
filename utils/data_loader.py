@@ -1,6 +1,15 @@
-from utils.flickr_dataset import FlickrDataset
-from utils.equiponderate import Equiponderater
+import torch
+import json
+from flickr_dataset import FlickrDataset
+from equiponderate import Equiponderater
 from torch.utils.data import DataLoader
+
+
+def read_json(json_path):
+    assert json_path, f'{json_path} not exist'
+    with open(json_path, 'r') as f:
+        data = json.load(f)
+    return data
 
 
 def data_loader(root_dir, caption_file,
@@ -29,6 +38,7 @@ def data_loader(root_dir, caption_file,
 
     # load the dataset
     dataset = FlickrDataset(root_dir, caption_file, transform)
+
     # padding value
     pad_value = dataset.vocabulary.stoi["<PAD>"]
 
@@ -42,6 +52,6 @@ def data_loader(root_dir, caption_file,
         collate_fn=Equiponderater(pad_value=pad_value)
     )
 
-    return loader
+    return loader, dataset
 
 

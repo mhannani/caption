@@ -1,0 +1,8 @@
+{
+  "embed_size": 256,
+  "hidden_size": 256,
+  "num_layers": 1,
+  "lr": 3e-4,
+  "num_epochs": 100,
+
+}

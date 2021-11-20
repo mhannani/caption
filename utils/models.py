@@ -153,7 +153,7 @@ class Captioner(nn.Module):
             states = None  # hidden and self state of the LSTM
             for _ in range(max_length):
                 hiddens, states = self.decoder.lstm(x, states)
-                output = self.decoder.linear(hiddens.unsqueeze(0))
+                output = self.decoder.linear(hiddens.squeeze(0))
                 relevant_word = output.argmax(1)
                 caption_index.append(relevant_word)
                 x = self.decoder.embed(relevant_word).unsqueeze(0)

@@ -4,7 +4,7 @@ from PIL import Image
 import torch
 from torch.utils.data import DataLoader, Dataset
 
-from utils.vocabulary import Vocabulary
+from vocabulary import Vocabulary
 
 
 class FlickrDataset(Dataset):
@@ -31,7 +31,7 @@ class FlickrDataset(Dataset):
         self.transform = transform
         self.freq_threshold = freq_threshold
         # load the dataframe of captions and image filename
-        self.df = pd.read_csv(self.captions_file)
+        self.df = pd.read_csv(self.captions_file)[:1]
 
         # get the images and captions
         self.images = self.df["image"]
@@ -43,7 +43,7 @@ class FlickrDataset(Dataset):
 
     def __len__(self):
         """
-        returns the lenght of the dataset.
+        returns the length of the dataset.
         :return: integer
         """
 

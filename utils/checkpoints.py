@@ -1,17 +1,17 @@
 import torch
-import torchvision.transforms as transforms
-from PIL import Image
+from datetime import datetime
 
 
-def save_checkpoint(state, filename, epoch):
+def save_checkpoint(state, epoch):
     """
     Save model checkpoints
     :param epoch: epoch
     :param state:
-    :param filename:
     :return:
     """
-    filename = "checkpoint_{}_.pth.tar".format(epoch)
+    now = datetime.now()
+    moment_date = now.strftime("%d_%m_%Y__%H_%M_%S")
+    filename = "checkpoints/checkpoint_num_{}__{}.pth.tar".format(epoch, moment_date)
     print("==< Saving checkpoint >==")
     torch.save(state, filename)
 
