@@ -69,11 +69,11 @@ if __name__ == "__main__":
     # Initialize model
     model = Captioner(embed_size, hidden_size, vocabulary_size, num_layer).to(device)
 
-    # set up the model to evaluation mode
-    model.eval()
-
     model, _ = load_checkpoint(torch.load("checkpoints/checkpoint_num_39__21_11_2021__16_33_06.pth.tar",
                                           map_location=torch.device('cpu')), model)
+
+    # set up the model to evaluation mode
+    model.eval()
 
     # get the data
     training_data, train_dataset = data_loader(root_dir="../Data/Images/train",
