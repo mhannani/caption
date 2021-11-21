@@ -14,7 +14,7 @@ def train():
     Train the captioner
     :return:
     """
-    print("Training")
+
     # Apply some transformation to our data
     transform = transforms.Compose(
         [
@@ -28,17 +28,17 @@ def train():
     # get the data
     training_data, train_dataset = data_loader(root_dir="../Data/Images/train",
                                                caption_file="../Data/caption_train.csv",
-                                               transform=transform, num_workers=8)
+                                               transform=transform, num_workers=6)
 
     # get the test data
     test_data, test_dataset = data_loader(root_dir="../Data/Images/test",
                                           caption_file="../Data/caption_test.csv",
-                                          transform=transform, num_workers=8)
+                                          transform=transform, num_workers=6)
 
     # get validation data
     valid_data, valid_dataset = data_loader(root_dir="../Data/Images/valid",
                                             caption_file="../Data/caption_valid.csv",
-                                            transform=transform, num_workers=8)
+                                            transform=transform, num_workers=6)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     load_model = False
     save_model = True
@@ -72,6 +72,8 @@ def train():
 
     # training process
     for epoch in range(num_epochs):
+        print(f'epoch {epoch}/{num_epochs} ... Training loss: -')
+
         running_loss = 0.0
 
         for index, (images, captions) in enumerate(training_data):
@@ -91,10 +93,9 @@ def train():
             # accumulate the training loss
             running_loss += loss.item()
 
-            print(f'going through batches the current epoch {epoch}/{num_epochs}')
-            print(f"current batch {index} / {len(training_data)}")
+            print(f"current batch {index + 1} / {len(training_data)}")
 
-        print(f'Epoch: {epoch + 1}/{num_epochs} ... Training loss: {running_loss / len(training_data)}')
+        # print(f'Epoch: {epoch + 1}/{num_epochs} ... Training loss: {running_loss / len(training_data)}')
 
         # save the model at this stage
         if save_model:
@@ -106,6 +107,7 @@ def train():
         # save model each 10 epochs
             if (epoch + 1) % 10 == 0:
                 save_checkpoint(checkpoint, epoch)
+    print('Finished Training')
 
 
 if __name__ == "__main__":
