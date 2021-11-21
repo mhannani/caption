@@ -10,11 +10,22 @@ st.title("Welcome to Caption")
 st.header("Identify what's in your photos!")
 GitHub = "https://github.com/mhannani/caption"
 
+
 # supposing the pred_button got not clicked yet
 pred_button = False
 
 st.sidebar.title(
     "Caption"
+)
+
+caption_length = st.sidebar.slider('The caption length', 0, 50, 30)
+
+# Pick the model version
+choose_model = st.sidebar.selectbox(
+    "Pick model you'd like to use",
+    ("CNN_INCEP_V3_LSTM_WITHOUT_ATT",
+     "CNN_INCEP_V3_GRU_WITH_ATT",
+     "CNN_INCEP_V3_LSTM_WITH_ATT")
 )
 
 # github_icon = Image.open("assets/icons/github.png")
@@ -34,6 +45,7 @@ if not uploaded_file:
     st.stop()
 else:
     session_state.uploaded_image = uploaded_file.read()
+    print(type(uploaded_file.read()))
     st.image(session_state.uploaded_image, use_column_width=True)
     pred_button = st.button("Predict")
 
