@@ -43,6 +43,7 @@ def inference(model, dataset, transform, device, image_name=None, show_image=Fal
         image = Image.open("../Data/Images/test/335588286_f67ed8c9f9.jpg")
         image.show()
 
+    print(dataset.vocabulary)
     print(" ".join(model.image_captioner(transformed_image.to(device), dataset.vocabulary, max_length=100)))
 
 

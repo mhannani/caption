@@ -4,7 +4,7 @@ from PIL import Image
 import torch
 from torch.utils.data import DataLoader, Dataset
 
-from vocabulary import Vocabulary
+from .vocabulary import Vocabulary
 
 
 class FlickrDataset(Dataset):

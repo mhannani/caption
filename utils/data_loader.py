@@ -1,7 +1,7 @@
 import torch
 import json
-from flickr_dataset import FlickrDataset
-from equiponderate import Equiponderater
+from .flickr_dataset import FlickrDataset
+from .equiponderate import Equiponderater
 from torch.utils.data import DataLoader
 
 

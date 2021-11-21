@@ -4,7 +4,7 @@ import requests
 import SessionState
 import streamlit as st
 import webbrowser
-from app_utils import load_transform_img
+from app_utils.generate_caption import generate_caption
 
 st.title("Welcome to Caption")
 st.header("Identify what's in your photos!")
@@ -59,5 +59,7 @@ else:
     session_state.pred_button = False
 
 if session_state.pred_button:
-    st.write("make predictions")
-    load_transform_img(uploaded_file)
+    caption = generate_caption(uploaded_file)
+    cleaned_caption = caption.replace('<EOS>', '').replace('<SOS>', '')
+    st.success(cleaned_caption)
+
