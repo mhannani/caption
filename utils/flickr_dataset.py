@@ -18,7 +18,7 @@ class FlickrDataset(Dataset):
         :root_dir string
             Root directory of the dataset.
         :caption_file string
-            The name of the caption csv file.
+            The name of thebuild_vocabulary caption csv file.
         :transform: transforms class
             The transformation to apply to data while loading it.
         :freq_threshold integer

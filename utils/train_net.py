@@ -7,6 +7,7 @@ from PIL import Image
 from data_loader import data_loader
 from models import Captioner
 from checkpoints import load_checkpoint, save_checkpoint
+from utils.plot import show_image
 
 
 def train():
@@ -107,6 +108,18 @@ def train():
         # save model each 10 epochs
             if (epoch + 1) % 10 == 0:
                 save_checkpoint(checkpoint, epoch)
+
+                # generate the caption
+                model.eval()
+                with torch.no_grad():
+                    dataiter = iter(valid_data)
+                    img, _ = next(dataiter)
+                    features = model.encoder(img[0:1].to(device))
+                    caps = model.decoder.generate_caption(features.unsqueeze(0), vocab=train_dataset.vocab)
+                    caption = ' '.join(caps)
+                    show_image(img[0], title=caption)
+
+                model.train()
     print('Finished Training')
 
 

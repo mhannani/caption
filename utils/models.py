@@ -31,6 +31,9 @@ class CNN(nn.Module):
         # setting up DropOut layer
         self.dropout = nn.Dropout(0.5)
 
+        # using batch normalization
+        self.bn = nn.BatchNorm1d(embed_size, momentum=0.1)
+
         self.fc = self.inception
 
     def forward(self, images):
