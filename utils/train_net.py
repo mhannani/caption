@@ -7,7 +7,7 @@ from PIL import Image
 from data_loader import data_loader
 from models import Captioner
 from checkpoints import load_checkpoint, save_checkpoint
-from utils.plot import show_image
+# from utils.plot import show_image
 
 
 def train():
@@ -48,6 +48,7 @@ def train():
     embed_size = 256
     hidden_size = 256
     vocabulary_size = len(train_dataset.vocabulary)
+    print(vocabulary_size)
     num_layer = 1
     lr = 3e-4
     num_epochs = 101
@@ -67,7 +68,7 @@ def train():
 
     # load checkpoint if already saved
     if load_model:
-        step = load_checkpoint(torch.load("checkpoint.pth.tar"), model, optimizer)
+        _, step = load_checkpoint(torch.load("checkpoint.pth.tar"), model, optimizer)
 
     model.train()
 

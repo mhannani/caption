@@ -16,18 +16,19 @@ def save_checkpoint(state, epoch):
     torch.save(state, filename)
 
 
-def load_checkpoint(checkpoint, model, optimizer):
+def load_checkpoint(checkpoint, model):
     """
     Load pre-trained model's checkpoints
     :param checkpoint: checkpoint file name
     :param model: model class
-    :param optimizer: optimizer
     :return:
     """
 
     print("==< Loading checkpoint >==")
-    model.load_state_dict(checkpoint["state_dict"])
-    optimizer.load_state_dict(checkpoint["optimizer"])
+
+    # Print model's state_dict
+    model.load_state_dict(checkpoint["state_dict"], strict=False)
+    # optimizer.load_state_dict(checkpoint["optimizer"])
     step = checkpoint["step"]
 
-    return step
+    return model, step

@@ -78,7 +78,7 @@ class Vocabulary:
                     self.itos[index] = token
                     index += 1
 
-        return frequencies
+        return self.stoi
 
     def numericalize(self, text):
         """
@@ -98,7 +98,7 @@ class Vocabulary:
 
 
 def main():
-    vocab = Vocabulary(5)
+    vocab = Vocabulary(2)
     vocab_path_json = "../Data/vocab.json"
     captions_file = "../Data/captions.txt"
     captions_list = pd.read_csv(captions_file)["caption"].tolist()

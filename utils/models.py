@@ -158,7 +158,7 @@ class Captioner(nn.Module):
                 hiddens, states = self.decoder.lstm(x, states)
                 output = self.decoder.linear(hiddens.squeeze(0))
                 relevant_word = output.argmax(1)
-                caption_index.append(relevant_word)
+                caption_index.append(relevant_word.item())
                 x = self.decoder.embed(relevant_word).unsqueeze(0)
 
                 # if we reach the end of the sentence
