@@ -31,7 +31,7 @@ class FlickrDataset(Dataset):
         self.transform = transform
         self.freq_threshold = freq_threshold
         # load the dataframe of captions and image filename
-        self.df = pd.read_csv(self.captions_file)[:1]
+        self.df = pd.read_csv(self.captions_file)
 
         # get the images and captions
         self.images = self.df["image"]
