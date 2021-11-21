@@ -92,9 +92,9 @@ def train():
             running_loss += loss.item()
 
             print(f'going through batches the current epoch {epoch}/{num_epochs}')
-            print(f"current batch {index}/{len(training_data)}")
+            print(f"current batch {index} / {len(training_data)}")
 
-        print(f'Epoch: {epoch + 1}/{num_epochs} ... Training loss: {running_loss}')
+        print(f'Epoch: {epoch + 1}/{num_epochs} ... Training loss: {running_loss / len(training_data)}')
 
         # save the model at this stage
         if save_model:
