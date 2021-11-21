@@ -75,8 +75,6 @@ if __name__ == "__main__":
     model, _ = load_checkpoint(torch.load("checkpoints/checkpoint_num_39__21_11_2021__16_33_06.pth.tar",
                                           map_location=torch.device('cpu')), model)
 
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
     # get the data
     training_data, train_dataset = data_loader(root_dir="../Data/Images/train",
                                                caption_file="../Data/caption_train.csv",
