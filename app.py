@@ -1,6 +1,7 @@
 from app_utils import SessionState
 import streamlit as st
 from app_utils.gt_captions import gt_captions
+from app_utils.evaluation import blue_score
 import webbrowser
 from app_utils.generate_caption import generate_caption
 
@@ -61,4 +62,5 @@ else:
 if session_state.pred_button:
     st.subheader('~Generated caption')
     caption = generate_caption(uploaded_file, caption_length)
+    blue_score(session_state.filename, None)
     st.success(caption)

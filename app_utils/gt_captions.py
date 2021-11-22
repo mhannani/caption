@@ -1,11 +1,13 @@
 import pandas as pd
 
 
-def gt_captions(filename):
+def gt_captions(filename, as_df=True):
     """
     Get caption for the images
     :param filename: string
         Filename
+    :param as_df: Boolean
+        if True returns dataframe of captions if not return an 1d-array of captions
     :return: Dataframe
         Dataframe of ground truth captions
     """
@@ -16,4 +18,8 @@ def gt_captions(filename):
 
     # captions dataframe
     captions_df = pd.DataFrame(image_captions, columns=['Captions'])
-    return captions_df
+
+    if as_df:
+        return captions_df
+
+    return image_captions
