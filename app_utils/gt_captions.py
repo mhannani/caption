@@ -16,5 +16,4 @@ def gt_captions(filename):
 
     # captions dataframe
     captions_df = pd.DataFrame(image_captions, columns=['Captions'])
-    print(captions_df)
     return captions_df

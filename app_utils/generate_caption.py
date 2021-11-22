@@ -36,7 +36,10 @@ def generate_caption(image, num_captions=50):
     # generate caption
     caption = " ".join(model.image_captioner(transformed_img.to(device), vocabulary, max_length=num_captions))
 
-    return caption
+    # remove <SOS> and <EOS> symbols from caption
+    cleaned_caption = caption.replace('<EOS>', '').replace('<SOS>', '')
+
+    return cleaned_caption
 
 
 
