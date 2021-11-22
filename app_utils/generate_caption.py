@@ -31,7 +31,8 @@ def generate_caption(image, num_captions=50):
     model = load_model()
 
     # get the vocabulary
-    vocabulary = load_vocabulary()
+    vocabulary = load_vocabulary(transform)
+    # print(vocabulary)
 
     # generate caption
     caption = " ".join(model.image_captioner(transformed_img.to(device), vocabulary, max_length=num_captions))

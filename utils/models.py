@@ -161,15 +161,22 @@ class Captioner(nn.Module):
                 relevant_word_index = output.argmax(1)
                 caption_index.append(relevant_word_index.item())
                 x = self.decoder.embed(relevant_word_index).unsqueeze(0)
+
+                # when building vocabulary from scratch
                 if isinstance(vocabulary, Vocabulary):
                     # if we reach the end of the sentence
+
                     if vocabulary.itos[relevant_word_index.item()] == "<EOS>":
                         break
-                    caption = [vocabulary.itos[index] for index in caption_index]
+
+                # when loading vocabulary from disk
                 else:
                     # if we reach the end of the sentence
                     if vocabulary[f"{relevant_word_index.item()}"] == "<EOS>":
                         break
-                    caption = [vocabulary[f"{index}"]for index in caption_index]
+            if isinstance(vocabulary, Vocabulary):
+                caption = [vocabulary.itos[index] for index in caption_index]
+            else:
+                caption = [vocabulary[f"{index}"] for index in caption_index]
 
         return caption

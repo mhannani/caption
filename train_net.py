@@ -4,9 +4,9 @@ import torch.optim as optim
 import torchvision.transforms as transforms
 from torch.utils.tensorboard import SummaryWriter
 from PIL import Image
-from data_loader import data_loader
-from models import Captioner
-from checkpoints import load_checkpoint, save_checkpoint
+from utils.data_loader import data_loader
+from utils.models import Captioner
+from utils.checkpoints import load_checkpoint, save_checkpoint
 # from utils.plot import show_image
 
 
@@ -27,18 +27,18 @@ def train():
     )
 
     # get the data
-    training_data, train_dataset = data_loader(root_dir="../Data/Images/train",
-                                               caption_file="../Data/caption_train.csv",
+    training_data, train_dataset = data_loader(root_dir="Data/Images/train",
+                                               caption_file="Data/caption_train.csv",
                                                transform=transform, num_workers=6)
 
     # get the test data
-    test_data, test_dataset = data_loader(root_dir="../Data/Images/test",
-                                          caption_file="../Data/caption_test.csv",
+    test_data, test_dataset = data_loader(root_dir="Data/Images/test",
+                                          caption_file="Data/caption_test.csv",
                                           transform=transform, num_workers=6)
 
     # get validation data
-    valid_data, valid_dataset = data_loader(root_dir="../Data/Images/valid",
-                                            caption_file="../Data/caption_valid.csv",
+    valid_data, valid_dataset = data_loader(root_dir="Data/Images/valid",
+                                            caption_file="Data/caption_valid.csv",
                                             transform=transform, num_workers=6)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     load_model = False
@@ -111,16 +111,16 @@ def train():
                 save_checkpoint(checkpoint, epoch)
 
                 # generate the caption
-                model.eval()
-                with torch.no_grad():
-                    dataiter = iter(valid_data)
-                    img, _ = next(dataiter)
-                    features = model.encoder(img[0:1].to(device))
-                    caps = model.decoder.generate_caption(features.unsqueeze(0), vocab=train_dataset.vocab)
-                    caption = ' '.join(caps)
-                    show_image(img[0], title=caption)
+                # model.eval()
+                # with torch.no_grad():
+                #     dataiter = iter(valid_data)
+                #     img, _ = next(dataiter)
+                #     features = model.encoder(img[0:1].to(device))
+                #     caps = model.decoder.generate_caption(features.unsqueeze(0), vocab=train_dataset.vocab)
+                #     caption = ' '.join(caps)
+                #     show_image(img[0], title=caption)
 
-                model.train()
+                # model.train()
     print('Finished Training')
 
 

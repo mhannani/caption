@@ -1,7 +1,4 @@
-import os
-import json
-import requests
-import SessionState
+from app_utils import SessionState
 import streamlit as st
 from app_utils.gt_captions import gt_captions
 import webbrowser

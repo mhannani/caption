@@ -2,7 +2,7 @@ import torch
 from utils.checkpoints import load_checkpoint
 from utils.models import Captioner
 
-checkpoints_path = "utils/checkpoints/checkpoint_num_39__21_11_2021__16_33_06.pth.tar"
+checkpoints_path = "checkpoints/checkpoint_num_39__21_11_2021__16_33_06.pth.tar"
 
 
 def load_model():
