@@ -15,7 +15,7 @@ pred_button = False
 st.sidebar.title(
     "Caption"
 )
-# github_icon = Image.open("assets/icons/github.png")
+# github_icon = Image.open("static/icons/github.png")
 if st.sidebar.button('Fork on GitHub'):
     webbrowser.open_new_tab(GitHub)
 
