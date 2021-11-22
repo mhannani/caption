@@ -5,10 +5,11 @@ import torchvision.transforms as transforms
 from .load_vocabulary import load_vocabulary
 
 
-def generate_caption(image):
+def generate_caption(image, num_captions=50):
     """
     Generate a caption for the given image
     :param image: A preprocessed image.
+    :param num_captions: Number of captions
     :return: string
         Caption generated
     """
@@ -33,7 +34,7 @@ def generate_caption(image):
     vocabulary = load_vocabulary(transform)
 
     # generate caption
-    caption = " ".join(model.image_captioner(transformed_img.to(device), vocabulary, max_length=100))
+    caption = " ".join(model.image_captioner(transformed_img.to(device), vocabulary, max_length=num_captions))
 
     return caption
 
