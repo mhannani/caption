@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torchvision.models as models
+from .vocabulary import Vocabulary
 
 
 class CNN(nn.Module):
@@ -157,14 +158,18 @@ class Captioner(nn.Module):
             for _ in range(max_length):
                 hiddens, states = self.decoder.lstm(x, states)
                 output = self.decoder.linear(hiddens.squeeze(0))
-                relevant_word = output.argmax(1)
-                caption_index.append(relevant_word.item())
-                x = self.decoder.embed(relevant_word).unsqueeze(0)
-
-                # if we reach the end of the sentence
-                if vocabulary.itos[relevant_word.item()] == "<EOS>":
-                    break
-
-            caption = [vocabulary.itos[index] for index in caption_index]
+                relevant_word_index = output.argmax(1)
+                caption_index.append(relevant_word_index.item())
+                x = self.decoder.embed(relevant_word_index).unsqueeze(0)
+                if isinstance(vocabulary, Vocabulary):
+                    # if we reach the end of the sentence
+                    if vocabulary.itos[relevant_word_index.item()] == "<EOS>":
+                        break
+                    caption = [vocabulary.itos[index] for index in caption_index]
+                else:
+                    # if we reach the end of the sentence
+                    if vocabulary[f"{relevant_word_index.item()}"] == "<EOS>":
+                        break
+                    caption = [vocabulary[f"{index}"]for index in caption_index]
 
         return caption

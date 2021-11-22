@@ -78,7 +78,7 @@ class Vocabulary:
                     self.itos[index] = token
                     index += 1
 
-        return self.stoi
+        return self.itos
 
     def numericalize(self, text):
         """
