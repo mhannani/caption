@@ -1,4 +1,20 @@
-body {
-    font-size:50px ;
-    color: #FF9633;
+footer, header{
+    visibility: hidden !important;
+}
+
+.stMarkdownContainer{
+    font-size: 100px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    text-align: center !important;
+}
+
+a{
+    text-decoration: none;
+    color: inherit !important;
+
+}
+.fab{
+    float: right;
 }
