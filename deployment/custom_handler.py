@@ -12,5 +12,15 @@ class CaptionHandler(BaseHandler):
     """
 
     def __init__(self):
-        pass
+        super().__init__()
+        self.initialized = False
+
+    def initialize(self, context):
+        """
+        Get invoked by by torchserve for loading the model.
+        :param context: context contains server system properties.
+        :return: None
+        """
+
+        # load the model
 
