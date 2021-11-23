@@ -7,9 +7,11 @@ from app_utils.evaluation import calculate_blue_score
 import webbrowser
 from app_utils.generate_caption import generate_caption
 GitHub = "https://github.com/mhannani/caption"
+WebApp = "https://caption.mhannani.com/"
+
 
 # github_icon = Image.open("static/icons/github.png")
-icon("fab fa-github fa-2x", GitHub)
+icon(["fab fa-github fa-2x", "fas fa-globe fa-2x"], [GitHub, WebApp])
 
 fw_cdn = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
 blue_score_dict_weights = {1: (1, 0, 0, 0), 2: (0, 1, 0, 0), 3: (0, 0, 1, 0), 4: (0, 0, 0, 1)}
