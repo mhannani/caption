@@ -28,8 +28,6 @@ def calculate_blue_score(filename, pred_caption, weights):
     # preprocess generated caption
     preprocessed_pred_caption = pre_process_sentence(pred_caption)
 
-    print(weights)
-
     blue_score = sentence_bleu(preprocessed_captions, preprocessed_pred_caption, weights)
 
     return blue_score
