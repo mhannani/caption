@@ -18,6 +18,9 @@ blue_score_dict_weights = {1: (1, 0, 0, 0), 2: (0, 1, 0, 0), 3: (0, 0, 1, 0), 4:
 # supposing the pred_button got not clicked yet
 pred_button = False
 show_gt_captions = False
+default_blue_weight = ""
+n_grams = 0
+captions = []
 
 local_css("static/app.css")
 remote_css(fw_cdn)
@@ -44,6 +47,7 @@ uploaded_file = st.file_uploader(label="Let's begin by uploading an image",
 # setup the state of the app
 session_state = SessionState.get(pred_button=False, show_gt_captions=False)
 
+
 # The logic of the app flow
 
 if not uploaded_file:
@@ -54,21 +58,24 @@ else:
     session_state.uploaded_image = uploaded_file.read()
     session_state.filename = uploaded_file.name
     st.image(session_state.uploaded_image)
-    show_gt_captions = st.sidebar.radio("Show ground truth captions ?", ("Yes", "No"))
+    captions = gt_captions(session_state.filename)
+    if not captions.empty:
+        show_gt_captions = st.sidebar.radio("Show ground truth captions ?", ("Yes", "No"))
+        st.sidebar.subheader("Evaluation Settings")
+
+        # whether to used the default weighted BLEU-4
+        default_blue_weight = st.sidebar.radio("1. Use the default weights of BLUE score ?", ("Yes", "No"))
+
+        # n-grams parameters
+        if default_blue_weight == "No":
+            n_grams = st.sidebar.slider('2. Number of n-grams', 1, 4, 4)
+
     session_state.gt_captions_button = show_gt_captions
-    if show_gt_captions == "Yes":
+
+    if show_gt_captions == "Yes" and not captions.empty:
         st.subheader('~ Ground Truth captions')
-        st.table(gt_captions(session_state.filename))
+        st.table(captions)
 
-st.sidebar.subheader("Evaluation Settings")
-
-# whether to used the default weighted BLEU-4
-default_blue_weight = st.sidebar.radio("1. Use the default weights of BLUE score ?", ("Yes", "No"))
-
-
-# n-grams parameters
-if default_blue_weight == "No":
-    n_grams = st.sidebar.slider('2. Number of n-grams', 1, 4, 4)
 
 if uploaded_file:
     pred_button = st.sidebar.button("Predict")
@@ -82,12 +89,14 @@ else:
 if session_state.pred_button:
     st.subheader('~ Generated caption')
     caption = generate_caption(uploaded_file, caption_length)
-    if default_blue_weight == "Yes":
-        weights = (1./4., 1./4., 1./4., 1./4.)
-    else:
-        weights = blue_score_dict_weights[n_grams]
 
-    blue_score = calculate_blue_score(session_state.filename, caption, weights)
     st.success(caption)
-    st.subheader('~ The BLUE score')
-    st.info("{:.10f}".format(blue_score))
+    if not captions.empty:
+        if default_blue_weight == "Yes":
+            weights = (1. / 4., 1. / 4., 1. / 4., 1. / 4.)
+        else:
+            weights = blue_score_dict_weights[n_grams]
+
+        blue_score = calculate_blue_score(session_state.filename, caption, weights)
+        st.subheader('~ The BLUE score')
+        st.info("{:.10f}".format(blue_score))
