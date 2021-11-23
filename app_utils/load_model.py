@@ -2,10 +2,10 @@ import torch
 from utils.checkpoints import load_checkpoint
 from utils.models import Captioner
 
-checkpoints_path = "checkpoints/checkpoint_num_39__21_11_2021__16_33_06.pth.tar"
+chkpts_path = "checkpoints/checkpoint_num_39__21_11_2021__16_33_06.pth.tar"
 
 
-def load_model():
+def load_model(eval_mode=True, checkpoints_path=chkpts_path):
     """
     Load pre-trained model checkpoint.
     :return:
@@ -24,7 +24,8 @@ def load_model():
     model, _ = load_checkpoint(torch.load(checkpoints_path, map_location=torch.device('cpu')), model)
 
     # turn on evaluation mode for the model
-    model.eval()
+    if eval_mode:
+        model.eval()
 
     return model
 
