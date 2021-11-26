@@ -21,6 +21,13 @@ class CaptionHandler(BaseHandler):
         :param context: context contains server system properties.
         :return: None
         """
-
+        pass
         # load the model
 
+    def preprocess(self, data):
+
+        pass
+
+    def postprocess(self, data):
+
+        return data

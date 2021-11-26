@@ -25,20 +25,21 @@ def inference(model, dataset, transform, device, image_name=None, show_image=Fal
 
     # get ground-truth captions of the given image
     df = pd.read_csv("Data/caption_test.csv")
+
     image_captions = df.loc[df['image'] == f"{image_name}.jpg"]['caption'].to_list()
 
     # summary
     print("===============================================================")
-    print("|==================< ground-truth captions >==================|")
+    print("|==================< Ground-truth captions >==================|")
 
     for caption in image_captions:
         print(caption)
 
-    print("|====================< generated caption >====================|")
+    print("|====================< Generated caption >====================|")
 
     if show_image:
-        image = Image.open("../Data/Images/test/335588286_f67ed8c9f9.jpg")
+        image = Image.open("Data/Images/test/335588286_f67ed8c9f9.jpg")
         image.show()
 
-    print(dataset.vocabulary)
+    # print(dataset.vocabulary)
     print(" ".join(model.image_captioner(transformed_image.to(device), dataset.vocabulary, max_length=100)))
