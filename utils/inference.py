@@ -11,9 +11,9 @@ def inference(model, dataset, transform, device, image_name=None, show_image=Fal
     :param transform:
     :param model: the model class
     :param dataset: dataset
-    :param image_name: image name withour extension
+    :param image_name: image name without extension
     :return: string
-        genereted caption
+        Genereted caption
     """
     if image_name is None:
         warnings.WarningMessage("No image name was given please... Using the default one.")

@@ -1,6 +1,6 @@
-from custom_handler import CaptionHandler
+from custom_handler import MyHandler
 
-_service = CaptionHandler()
+_service = MyHandler()
 
 
 def handle(data, context):
@@ -25,6 +25,3 @@ def handle(data, context):
     data = _service.postprocess(data)
 
     return data
-
-
-
