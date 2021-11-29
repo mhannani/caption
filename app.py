@@ -6,9 +6,9 @@ from app_utils.load_assets import local_css, remote_css, icon
 from app_utils.evaluation import calculate_blue_score
 import webbrowser
 from app_utils.generate_caption import generate_caption
+
 GitHub = "https://github.com/mhannani/caption"
 WebApp = "https://caption.mhannani.com/"
-
 
 # github_icon = Image.open("static/icons/github.png")
 icon(["fab fa-github fa-2x", "fas fa-globe fa-2x"], [GitHub, WebApp])

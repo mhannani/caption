@@ -1,9 +1,11 @@
 import json
 import torch
 import io
+import os
 from PIL import Image
 from ts.torch_handler.base_handler import BaseHandler
 from torchvision import transforms
+from models import Captioner
 
 
 class CaptionHandler(BaseHandler):
@@ -25,30 +27,60 @@ class CaptionHandler(BaseHandler):
             transforms.Normalize(mean=[0.485, 0.456, 0.406],
                                  std=[0.229, 0.224, 0.225])
         ])
-        # with open("vocab.json") as f:
-        #     self.vocabulary = json.load(f)
+        with open("index_to_name.json") as f:
+            self.vocabulary = json.load(f)
+
+    def initialize(self, ctx):
+        """First try to load torchscript else load eager mode state_dict based model"""
+        # hyperparameters
+        embed_size = 256
+        hidden_size = 256
+        vocabulary_size = 2339
+        num_layer = 1
+
+        properties = ctx.system_properties
+        model_dir = properties.get("model_dir")
+
+        caption_checkpoint = torch.load(
+                                os.path.join(model_dir, "checkpoint_num_39__21_11_2021__16_33_06.pth.tar"),
+                                map_location=torch.device('cpu'))
+        self.model = Captioner(embed_size, hidden_size, vocabulary_size, num_layer)
+        self.model.load_state_dict(caption_checkpoint["state_dict"], strict=False)
+        self.model.eval()
 
     def preprocess(self, request):
+        print('request: ', request)
         request = request[0]
+        print('request[0]: ', request)
         image = request.get("data")
+        print('request.get(data): ', image)
         if image is None:
             image = request.get("body")
 
         image = Image.open(io.BytesIO(image))
-        transformed_image = self.transform(image)
+        transformed_image = self.transform(image).unsqueeze(0)
 
-        return transformed_image
+        with open("index_to_name.json") as f:
+            vocabulary = json.load(f)
 
-    def inference(self, data):
-        print("model", self.model)
-        model_output = self.model.image_captioner(data)
+        return transformed_image, vocabulary
+
+    def inference(self, data, vocab):
+        model_output = self.model.image_captioner(data, vocab)
         return model_output
 
-    def postprocess(self, data):
-        return data
+    def postprocess(self, caption):
+        json_result = []
+        caption = " ".join(caption)
+
+        # clean our caption string
+        cleaned_caption = caption.replace('<EOS>', '').replace('<SOS>', '').strip()
+        json_result.append({'caption': cleaned_caption})
+        return json_result
 
     def handle(self, data, context):
-        model_input = self.preprocess(data)
-        # print("model input", model_input)
-        model_output = self.inference(model_input)
-        return self.postprocess(model_output)
+        batch_image, vocabulary = self.preprocess(data)
+        model_output = self.inference(batch_image, vocabulary)
+        caption = self.postprocess(model_output)
+        print(caption)
+        return caption

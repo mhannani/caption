@@ -16,7 +16,7 @@ def load_vocabulary(transform):
 
     vocabulary = train_dataset.vocabulary
 
-    with open("app_utils/vocab.json") as f:
+    with open("app_utils/index_to_name.json") as f:
         vocabulary = json.load(f)
 
     return vocabulary
