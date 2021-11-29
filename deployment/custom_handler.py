@@ -82,5 +82,4 @@ class CaptionHandler(BaseHandler):
         batch_image, vocabulary = self.preprocess(data)
         model_output = self.inference(batch_image, vocabulary)
         caption = self.postprocess(model_output)
-        print(caption)
         return caption
