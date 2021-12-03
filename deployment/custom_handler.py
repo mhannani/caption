@@ -49,11 +49,8 @@ class CaptionHandler(BaseHandler):
         self.model.eval()
 
     def preprocess(self, request):
-        print('request: ', request)
         request = request[0]
-        print('request[0]: ', request)
         image = request.get("data")
-        print('request.get(data): ', image)
         if image is None:
             image = request.get("body")
 

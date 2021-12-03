@@ -5,7 +5,7 @@ from utils.vocabulary import Vocabulary
 
 def main():
     vocab = Vocabulary(5)
-    vocab_path_json = "app_utils/vocab.json"
+    vocab_path_json = "app_utils/index_to_name.json"
     captions_file = "Data/captions.txt"
     captions_list = pd.read_csv(captions_file)["caption"].tolist()
     vocab_dict = vocab.build_vocabulary(captions_list)
