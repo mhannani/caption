@@ -88,6 +88,7 @@ else:
 
 if session_state.pred_button:
     st.subheader('~ Generated caption')
+    print()
     caption = generate_caption(uploaded_file, caption_length)
 
     st.success(caption)
