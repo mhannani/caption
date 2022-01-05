@@ -40,6 +40,7 @@ class CaptionHandler(BaseHandler):
 
         properties = ctx.system_properties
         model_dir = properties.get("model_dir")
+        print('================================', model_dir)
 
         caption_checkpoint = torch.load(
                                 os.path.join(model_dir, "checkpoint_num_39__21_11_2021__16_33_06.pth.tar"),
