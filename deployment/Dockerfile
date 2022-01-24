@@ -31,18 +31,18 @@ RUN torchserve --start --ts-config=/home/model-server/config.properties --models
 
 
 # google cloud deployment
-FROM python:3.8
-
-ENV APP_HOME /app
-WORKDIR $APP_HOME
-
-#COPY . ./
-COPY checkpoints/checkpoint_num_39__21_11_2021__16_33_06.pth.tar ./checkpoints
-COPY app_utils ./
-COPY app.py ./
-
-RUN pip install -r requirements.txt
-
-EXPOSE 8080
-
-CMD streamlit run app.py
+#FROM python:3.8
+#
+#ENV APP_HOME /app
+#WORKDIR $APP_HOME
+#
+##COPY . ./
+#COPY checkpoints/checkpoint_num_39__21_11_2021__16_33_06.pth.tar ./checkpoints
+#COPY app_utils ./
+#COPY app.py ./
+#
+#RUN pip install -r requirements.txt
+#
+#EXPOSE 8080
+#
+#CMD streamlit run app.py
