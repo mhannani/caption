@@ -12,4 +12,4 @@
 
 #### * Show predicted caption with BLUE score
 
-![Caption](static/predicted caption.png)
+![Caption](static/predicted-caption.png)
