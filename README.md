@@ -1,4 +1,8 @@
-# Image Captioning With Deep Learning
+# Image Captioning With PyTorch
+
+### Model architecture
+![Caption](static/caption.png)
+
 ### Web application
 
 #### * Entry point
