@@ -68,7 +68,7 @@ def train():
 
     # load checkpoint if already saved
     if load_model:
-        _, step = load_checkpoint(torch.load("checkpoint.pth.tar"), model, optimizer)
+        _, step = load_checkpoint(torch.load("checkpoint.pth.tar"), model)
 
     model.train()
 
