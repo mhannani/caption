@@ -13,6 +13,4 @@
 /notebook.ipynb
 /save_vocabulary.py
 /train_net.py
-
-
 /checkpoints/caption.pt

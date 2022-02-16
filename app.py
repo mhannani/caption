@@ -1,10 +1,8 @@
 from app_utils import SessionState
 import streamlit as st
-from PIL import Image
 from app_utils.gt_captions import gt_captions
 from app_utils.load_assets import local_css, remote_css, icon
 from app_utils.evaluation import calculate_blue_score
-import webbrowser
 from app_utils.generate_caption import generate_caption
 
 GitHub = "https://github.com/mhannani/caption"
