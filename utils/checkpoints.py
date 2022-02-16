@@ -9,6 +9,7 @@ def save_checkpoint(state, epoch):
     :param state:
     :return:
     """
+
     now = datetime.now()
     moment_date = now.strftime("%d_%m_%Y__%H_%M_%S")
     filename = "checkpoints/checkpoint_num_{}__{}.pth.tar".format(epoch, moment_date)
@@ -23,8 +24,6 @@ def load_checkpoint(checkpoint, model):
     :param model: model class
     :return:
     """
-
-    print("==< Loading checkpoint >==")
 
     # Print model's state_dict
     model.load_state_dict(checkpoint["state_dict"], strict=False)

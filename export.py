@@ -13,12 +13,12 @@ transform = transforms.Compose(
     ]
 )
 
-# get the data
+# Get the data
 data, dataset = data_loader(root_dir="Data/Images/train",
                             caption_file="Data/caption_train.csv",
                             transform=transform, num_workers=6)
 
-# hyperparameters
+# Hyperparameters
 embed_size = 256
 hidden_size = 256
 vocabulary_size = len(dataset.vocabulary)

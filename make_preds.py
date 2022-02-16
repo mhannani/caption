@@ -17,8 +17,8 @@ if __name__ == "__main__":
         ]
     )
 
-    # load the pretrained model
-    # hyperparameters
+    # Load the pretrained model
+    # Hyperparameters
     embed_size = 256
     hidden_size = 256
     vocabulary_size = 2339

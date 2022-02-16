@@ -27,6 +27,7 @@ class Vocabulary:
         Returns the length of the vocabulary.
         :return:
         """
+
         return len(self.itos)
 
     @staticmethod
@@ -58,18 +59,18 @@ class Vocabulary:
         # count the each token frequency in our corpus
         index = 4
 
-        # loop through the sentences/caption
+        # Loop through the sentences/caption
         for sentence in list_of_sentences:
-            # loop through each token in current sentence/caption
+            # Loop through each token in current sentence/caption
             for token in self.tokenizer_eng(sentence):
-                # if first time encountered
+                # If first time encountered
                 if token not in frequencies:
                     frequencies[token] = 1
-                # increment the counter
+                # Increment the counter
                 else:
                     frequencies[token] += 1
 
-                # if the frequency of the token exceed the threshold add it to vocabulary
+                # If the frequency of the token exceed the threshold add it to vocabulary
                 if frequencies[token] == self.freq_threshold:
                     self.stoi[token] = index
                     self.itos[index] = token

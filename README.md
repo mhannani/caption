@@ -7,7 +7,6 @@
 
 #### * Entry point
 
-
 ![Caption](static/entry.png)
 
 #### * Input an image

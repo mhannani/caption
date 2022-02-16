@@ -4,6 +4,11 @@ from utils.vocabulary import Vocabulary
 
 
 def main():
+    """
+    Main function
+    :return: None
+    """
+
     vocab = Vocabulary(5)
     vocab_path_json = "app_utils/index_to_name.json"
     captions_file = "Data/captions.txt"

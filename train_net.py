@@ -78,6 +78,7 @@ def train():
 
         running_loss = 0.0
 
+        # Go through batches 
         for index, (images, captions) in enumerate(training_data):
             images = images.to(device)
             captions = captions.to(device)
